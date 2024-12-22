@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Session" ALTER COLUMN "sid" SET DATA TYPE VARCHAR;

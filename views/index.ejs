@@ -1,0 +1,9 @@
+<%- include('./partials/header') %>
+
+<body>
+  <%- include('./partials/nav') %>
+  <h1>Home Page</h1>
+  <% if (locals.user) { %><p>Welcome, <%= user.username %></p><% } else { %><p>You are not logged in.</p><% } %>
+
+</body>
+</html>
