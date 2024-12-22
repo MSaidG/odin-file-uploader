@@ -3,14 +3,21 @@
   <%- include('./partials/nav') %>
 
   <h1>Sign Up</h1>
+  <% if (locals.errors) {%>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li>  <%= error.msg %></li>
+      <% }); %>
+  
+  <% } %>
   <form action="/signup" method="post">
     <section>
-      <label for="username" value="<%= locals.username %>">Username</label>
-      <input type="text" name="username" required>
+      <label for="username">Username</label>
+      <input type="text" name="username"  value="<%= locals.username %>" required>
     </section>
     <section>
-      <label for="email" value="<%= locals.email %>">Email</label>
-      <input type="email" name="email" required>
+      <label for="email">Email</label>
+      <input type="email" name="email" value="<%= locals.email %>" required>
     </section>
     <section>
       <label for="password">Password</label>

@@ -5,11 +5,13 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const passport = require("passport");
 const { prisma } = require("./db/queries");
 const authRouter = require("./routers/auth");
+const flash = require("connect-flash");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(flash());
 app.use(
   session({
     cookie: {
@@ -28,7 +30,7 @@ app.use(
 app.use(passport.authenticate("session"));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { user: req.user });
 });
 
 app.use("/", authRouter);

@@ -1,26 +1,20 @@
-const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../db/queries");
-const LocalStrategy = require("passport-local").Strategy;
+const LocalStrategy = require("passport-local");
 const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    try {
-      const user = await db.getUserByUsername(username);
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" });
-      }
-      const isValid = await bcrypt.compare(password, user.password);
-      if (!isValid) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      console.log("valid user");
-      return done(null, user);
-    } catch (err) {
-      return done(err);
+    const user = await db.getUserByUsername(username);
+    if (!user) {
+      return done(null, false, { message: "Incorrect username" });
     }
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) {
+      return done(null, false, { message: "Incorrect password" });
+    }
+    return done(null, user);
   })
 );
 passport.serializeUser((user, done) => {
@@ -39,21 +33,18 @@ const validateUser = [
     .withMessage(emailErr)
     .custom(async (value) => {
       const user = await db.getUserByEmail(value);
-      if (user) {
-        if (user.id) {
-          throw new Error("Email already in use");
-        }
+      if (user.id) {
+        throw new Error("Email already in use");
       }
     }),
 
   body("username")
     .trim()
+    .escape()
     .custom(async (value) => {
       const user = await db.getUserByUsername(value);
-      if (user) {
-        if (user.id) {
-          throw new Error("Username already in use");
-        }
+      if (user.id) {
+        throw new Error("Username already in use");
       }
     }),
 
@@ -69,11 +60,9 @@ const validateUser = [
     .matches(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
     .withMessage("Password must contain a special character"),
 
-  body("confirm-password")
-    .custom((value, { req }) => {
-      return value === req.body.password;
-    })
-    .withMessage("Passwords must match"),
+  body("confirm-passwor").custom((value, { req }) => {
+    return value === req.body.password;
+  }),
 ];
 
 const signupPost = [
@@ -81,8 +70,6 @@ const signupPost = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("err");
-      console.log(errors.array());
       res.render("signup", {
         errors: errors.array(),
         username: req.body.username,
@@ -106,39 +93,13 @@ const signupPost = [
           .catch((err) => {
             return next(err);
           })
-          .finally(() => db.prisma.$disconnect());
+          .finally(() => prisma.$disconnect());
       });
     }
   },
 ];
 
-router.get("/login", (req, res) => {
-  res.render("login", { message: req.session.messages });
-  req.session.messages = null;
-});
-
-router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
-
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureMessage: true,
-  })
-);
-
-router.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-router.post("/signup", signupPost);
-
-module.exports = router;
+module.exports = {
+  signupPost,
+  passport,
+};

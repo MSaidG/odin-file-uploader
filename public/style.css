@@ -31,7 +31,13 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 20px 0;
+}
+
+section {
+  margin: 5px 0;
+  width: 300px;
 }
 
 label {

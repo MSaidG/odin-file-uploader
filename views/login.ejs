@@ -4,6 +4,7 @@
   <%- include('./partials/nav') %>
 
   <h1>Log In</h1>
+  <p><% if (locals.message) { %><%= message %><% } %></p>
   <form action="/login" method="post">
     <section>
       <label for="username">Username</label>
