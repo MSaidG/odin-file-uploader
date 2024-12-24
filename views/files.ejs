@@ -1,0 +1,93 @@
+<%- include("./partials/header")%>
+<body>
+  <%- include("./partials/nav")%>
+  <h1>Files</h1>
+
+  <div> 
+    <ul>
+      <% files.forEach(file => { %>
+        <li class="file-item"><a class="file-link"><%= file.name %></a>
+          <div>
+            <div>
+              <form action="/upload/files/<%= file.name %>" method="post">
+                <button type="submit">Download</button>
+              </form>
+            </div>            
+            <div>
+              <button class="delete" data-name="<%= file.name %>">Delete</button>
+            </div>
+            <div>
+              <button class="share" data-name="<%= file.name %>">Share</button>
+            </div>
+          </div>          
+  
+
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <script> 
+    const deleteButtons = document.querySelectorAll('.delete');
+    const shareButtons = document.querySelectorAll('.share');
+
+    shareButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const name = button.getAttribute('data-name');
+        await fetch(`/upload/files`, {
+          method: 'POST',
+          body: JSON.stringify({name: name}),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((response) => {
+          if (!response.ok) {
+            console.error(response.statusText)
+          }
+          return response
+        })
+        .then((response) => {
+          return response.json()
+        }).then(function(json) {
+            console.log(json);
+        })
+        .catch((e) => dispatch(
+          console.error(e)
+        ));
+        location.reload();
+      });
+    });
+    
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+      const name = button.getAttribute('data-name');
+      button.parentNode.parentNode.parentNode.remove();
+      await fetch(`/upload/delete`, {
+        method: 'DELETE',
+        body: JSON.stringify({name: name}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {
+        if (!response.ok) {
+          console.error(response.statusText)
+        }
+        return response
+      })
+      .then((response) => {
+        return response.json()
+      }).then(function(json) {
+          console.log(json);
+      })
+      .catch((e) => dispatch(
+        console.error(e)
+      ));
+      location.reload();
+    });
+  });
+</script>
+
+</body>
+</html>

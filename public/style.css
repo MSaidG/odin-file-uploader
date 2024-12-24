@@ -70,3 +70,13 @@ button:hover {
 p {
   text-align: center;
 }
+
+li.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

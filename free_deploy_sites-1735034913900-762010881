@@ -1,0 +1,17 @@
+KOYEB (web app, database)
+RENDER (web app)
+NEON (database)
+
+REQUIRED NODE MODULES FOR A SIMPLE SITE
+-> express
+-> ejs
+-> pg or mongoose
+-> express-session
+-> express-validator
+-> connect-pg-simple or connect-mongo
+-> passport
+-> passport-local or passport-jwt
+-> bcryptjs or crypto
+-> prisma, @prisma/client, prisma-session-store
+-> multer
+-> supabase

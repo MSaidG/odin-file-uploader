@@ -1,0 +1,14 @@
+<%- include('./partials/header') %>
+
+<body>
+  <%- include('./partials/nav') %>
+
+  <h1>Upload File</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <section>
+      <label for="file">File</label>
+      <input type="file" name="file" required>
+    </section>
+    <button type="submit">Upload</button>
+  </form>
+</body>
