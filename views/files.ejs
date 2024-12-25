@@ -2,17 +2,50 @@
 <body>
   <%- include("./partials/nav")%>
   <h1>Files</h1>
+  <div class="buttons">
+    <button type="submit" hre>Create Folder</button>
+    <form class="upload-form" action="/upload/files/folder/<%= currentFolder %>" method="post" enctype="multipart/form-data">
+      <section class="upload">
+        <label for="file">File</label>
+        <input type="file" name="file" required>
+      </section>
+      <button type="submit">Upload</button>
+    </form>
+
+  </div>
+  <div>
+    <nav class="folders">
+    <% folders.forEach(folder => { %>
+      <% if (folder.name == '.emptyFolderPlaceholder') {return;} %>
+      <a class="folder-link" href="/upload/files/folder/<%= folder.name %>">
+        <ion-icon name="folder-outline"></ion-icon>
+        <span><%= folder.name %></span>
+      </a>
+    <% }); %>
+    </nav>
+  </div>
 
   <div> 
     <ul>
       <% files.forEach(file => { %>
-        <li class="file-item"><a class="file-link"><%= file.name %></a>
-          <div>
+        <% if (file.name == '.emptyFolderPlaceholder') {return;} %>
+        <li class="file-item">
+          <a class="file-link" href="/upload/files/<%= currentFolder %>/details/<%= file.name %>"><%= file.name %></a>
+          <div class="share">
+            <% if (locals.info && locals.name == file.name) { %>
+              <textarea class="share-link"><%= info %></textarea>
+              <button class="copy" data-copy=".share-link">
+                <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+                <span class="copy-label">Copy</span>
+              </button>
+            <% } %>
+          </div>
+          <div class="buttons">
             <div>
               <form action="/upload/files/<%= file.name %>" method="post">
                 <button type="submit">Download</button>
               </form>
-            </div>            
+            </div>    
             <div>
               <button class="delete" data-name="<%= file.name %>">Delete</button>
             </div>
@@ -20,16 +53,26 @@
               <button class="share" data-name="<%= file.name %>">Share</button>
             </div>
           </div>          
-  
-
         </li>
       <% }); %>
     </ul>
   </div>
 
   <script> 
-    const deleteButtons = document.querySelectorAll('.delete');
-    const shareButtons = document.querySelectorAll('.share');
+    const deleteButtons = document.querySelectorAll('button.delete');
+    const shareButtons = document.querySelectorAll('button.share');
+    const copyButtons = document.querySelectorAll('button.copy');
+
+    copyButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const text = button.parentElement.querySelector('.share-link').textContent;
+        await navigator.clipboard.writeText(text);
+        button.parentElement.querySelector('.share-link').textContent = "Copied";
+        setTimeout(() => {
+          button.parentNode.remove();
+        }, 2000);
+      });
+    });
 
     shareButtons.forEach(button => {
       button.addEventListener('click', async () => {
@@ -49,12 +92,13 @@
         })
         .then((response) => {
           return response.json()
-        }).then(function(json) {
-            console.log(json);
         })
-        .catch((e) => dispatch(
+        .then(function(json) {
+            return json.data;
+        })
+        .catch((e) => {
           console.error(e)
-        ));
+        });
         location.reload();
       });
     });
@@ -88,6 +132,9 @@
     });
   });
 </script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

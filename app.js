@@ -6,12 +6,13 @@ const passport = require("passport");
 const { prisma } = require("./db/queries");
 const authRouter = require("./routers/auth");
 const uploadRouter = require("./routers/upload");
-const bodyParser = require("body-parser");
+var flash = require("connect-flash");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(flash());
 app.use(express.static("public"));
 app.use(
   session({

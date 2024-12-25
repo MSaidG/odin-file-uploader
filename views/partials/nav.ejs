@@ -1,13 +1,20 @@
 <nav>
   <% if (!locals.user) { %>
   <a href="/">Home</a>
-  <a href="/signup">Sign Up</a>
-  <a href="/login">Log In</a>
+  <div>
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Log In</a>
+  </div>
   <% } else { %>
-    <a href="/">Home</a>
-    <a href="/profile">Profile</a>
-    <a href="/upload">Upload File</a>
-    <a href="/upload/files">Files</a>
-    <a href="/logout">Log Out</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/profile">Profile</a>
+      <a href="/upload">Upload File</a>
+      <a href="/upload/files/folder/root">Files</a>
+    </div>
+    <div>
+      <a href="/logout">Log Out</a>
+    </div>
+
   <% } %>
 </nav>

@@ -2,6 +2,23 @@
 
 <body>
   <%- include("./partials/nav") %>
-  <h1>File</h1>
-  <p><%= user %></p>
+  <h1>FILE DETAILS</h1>
+  <% if (locals.file) { %>
+  <h1><%= file.name %></h1>
+    <div class="file-details">
+      <div>
+        <% if ( file.metadata.mimetype.startsWith("application") || file.metadata.mimetype.startsWith("text") || file.metadata.mimetype.startsWith("image") ){ %>
+          <iframe class="preview" src="<%= url %>" alt="Preview"></iframe>
+        <% } %>
+      </div>
+      <div>
+        <p>Mime Type: <%= file.metadata.mimetype %></p>
+        <p>Created at: <%= file.created_at %></p>
+        <p>Updated at: <%= file.updated_at %></p>
+        <p>Last Modified: <%= file.metadata.lastModified %></p>
+        <p>Size: <%= file.metadata.size %> bytes</p>
+        <p>Content Length: <%= file.metadata.contentLength %></p>
+      </div>
+    </div>
+  <% } %>
 </body>

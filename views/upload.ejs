@@ -4,6 +4,7 @@
   <%- include('./partials/nav') %>
 
   <h1>Upload File</h1>
+
   <form action="/upload" method="post" enctype="multipart/form-data">
     <section>
       <label for="file">File</label>
@@ -11,4 +12,21 @@
     </section>
     <button type="submit">Upload</button>
   </form>
+  <% if (locals.info) { %>
+    <p id="myAlert" class="fadeout"><%= info %></p>
+  <% } %>
+
+<script>
+
+  function initialSetup() {
+    const alert = document.getElementById('myAlert');
+    if (alert != null) {
+      setTimeout(function() {
+        alert.remove();
+      }, 3000);
+    }
+  }
+  initialSetup();
+
+   </script>
 </body>

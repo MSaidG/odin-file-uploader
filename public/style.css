@@ -1,6 +1,6 @@
 nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: #333;
   color: #fff;
@@ -79,4 +79,133 @@ li.file-item {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+p.share {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+
+}
+
+div.share-link {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+li.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+div.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  height: 80px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 3px;
+}
+
+button.copy {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 6px 9px;
+  gap: 5px;
+}
+
+button.copy:active {
+  background-color: #005dc0;
+}
+
+textarea.share-link {
+  width: 500px;
+  height: 60px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  overflow: hidden;
+}
+
+img.preview {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+iframe.preview {
+  width: 800px;
+  height: 600px;
+  object-fit: cover;
+}
+
+div.file-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+nav.folders {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+a.folder-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+section.upload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form.upload-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+h1 {
+  margin: 0;
 }
