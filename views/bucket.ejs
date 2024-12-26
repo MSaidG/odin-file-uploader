@@ -1,0 +1,16 @@
+<%- include("./partials/header") %>
+
+<body>
+  <%- include("./partials/nav") %>
+  <h1>Bucket</h1>
+  <div>
+    <nav class="folders">
+    <% buckets.forEach(bucket => { %>
+      <% if (bucket.name == '.emptyFolderPlaceholder') {return;} %>
+      <a class="folder-link" href="/upload/files/folder/<%= bucket.name %>">
+        <ion-icon name="folder-outline"></ion-icon>
+        <span><%= bucket.name %></span>
+      </a>
+    <% }); %>
+    </nav>
+</body>

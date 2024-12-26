@@ -7,6 +7,7 @@ const {
   fileDelete,
   fileShare,
   fileDetails,
+  bucketGet,
 } = require("../controllers/uploadController");
 
 router.get("/", (req, res) => {
@@ -14,6 +15,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", uploadPost);
+router.get("/files/bucket", bucketGet);
 router.get("/files/folder/:name", filesGet);
 router.post("/files/folder/:name", uploadPost);
 router.get("/files/:folder/details/:name", fileDetails);

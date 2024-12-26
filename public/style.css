@@ -135,13 +135,13 @@ button.copy:active {
 
 textarea.share-link {
   width: 500px;
-  height: 60px;
+  height: 35px;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: none;
-  overflow: hidden;
+  overflow: auto;
 }
 
 img.preview {
@@ -208,4 +208,21 @@ form.upload-form {
 
 h1 {
   margin: 0;
+}
+
+ul.file-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 10px;
+}
+
+div.share-link-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 10px;
 }

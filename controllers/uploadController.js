@@ -141,6 +141,20 @@ const fileDetails = async (req, res) => {
   });
 };
 
+const bucketGet = async (req, res) => {
+  const { data, error } = await supabase.storage.listBuckets();
+  if (error) {
+    console.log(error.message);
+    throw error;
+  }
+  console.log(data);
+  res.render("bucket", {
+    buckets: data,
+    user: req.user,
+    info: req.flash("info"),
+  });
+};
+
 module.exports = {
   uploadPost,
   filesGet,
@@ -148,4 +162,5 @@ module.exports = {
   fileDelete,
   fileShare,
   fileDetails,
+  bucketGet,
 };

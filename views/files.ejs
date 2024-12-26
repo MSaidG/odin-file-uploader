@@ -3,7 +3,8 @@
   <%- include("./partials/nav")%>
   <h1>Files</h1>
   <div class="buttons">
-    <button type="submit" hre>Create Folder</button>
+    <button type="submit">Create Folder</button>
+    <a href="/upload/files/bucket">Create Bucket</a>
     <form class="upload-form" action="/upload/files/folder/<%= currentFolder %>" method="post" enctype="multipart/form-data">
       <section class="upload">
         <label for="file">File</label>
@@ -26,18 +27,20 @@
   </div>
 
   <div> 
-    <ul>
+    <ul class="file-list">
       <% files.forEach(file => { %>
         <% if (file.name == '.emptyFolderPlaceholder') {return;} %>
         <li class="file-item">
           <a class="file-link" href="/upload/files/<%= currentFolder %>/details/<%= file.name %>"><%= file.name %></a>
           <div class="share">
             <% if (locals.info && locals.name == file.name) { %>
-              <textarea class="share-link"><%= info %></textarea>
-              <button class="copy" data-copy=".share-link">
-                <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
-                <span class="copy-label">Copy</span>
-              </button>
+              <div class="share-link-container">
+                <textarea class="share-link"><%= info %></textarea>
+                <button class="copy" data-copy=".share-link">
+                  <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+                  <span class="copy-label">Copy</span>
+                </button>
+              </div>
             <% } %>
           </div>
           <div class="buttons">
